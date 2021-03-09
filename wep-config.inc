@@ -130,13 +130,13 @@ stock static rwc_SetFlagGroin(playerid, status)
 }
 
 //Function Prototype
-forward OnPlayerShootHead(playerid, issuerid, Float:amount, weaponid);
-forward OnPlayerShootTorso(playerid, issuerid, Float:amount, weaponid);
-forward OnPlayerShootRightArm(playerid, issuerid, Float:amount, weaponid);
-forward OnPlayerShootLeftArm(playerid, issuerid, Float:amount, weaponid);
-forward OnPlayerShootRightLeg(playerid, issuerid, Float:amount, weaponid);
-forward OnPlayerShootLeftLeg(playerid, issuerid, Float:amount, weaponid);
-forward OnPlayerShootGroin(playerid, issuerid, Float:amount, weaponid);
+forward OnPlayerShootHead(playerid, targetid, Float:amount, weaponid);
+forward OnPlayerShootTorso(playerid, targetid, Float:amount, weaponid);
+forward OnPlayerShootRightArm(playerid, targetid, Float:amount, weaponid);
+forward OnPlayerShootLeftArm(playerid, targetid, Float:amount, weaponid);
+forward OnPlayerShootRightLeg(playerid, targetid, Float:amount, weaponid);
+forward OnPlayerShootLeftLeg(playerid, targetid, Float:amount, weaponid);
+forward OnPlayerShootGroin(playerid, targetid, Float:amount, weaponid);
 
 
 stock IsBulletHitHead(playerid)
@@ -208,37 +208,37 @@ public OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid, bodypart)
     {
         case RWC_BODY_PART_HEAD: 
         {
-            CallRemoteFunction("OnPlayerShootHead", "ddfd", playerid, issuerid, amount, weaponid);
+            CallRemoteFunction("OnPlayerShootHead", "ddfd", issuerid, playerid, amount, weaponid);
             rwc_SetFlagHead(playerid, true);
         }
         case RWC_BODY_PART_TORSO: 
         {
-            CallRemoteFunction("OnPlayerShootTorso", "ddfd", playerid, issuerid, amount, weaponid);
+            CallRemoteFunction("OnPlayerShootTorso", "ddfd", issuerid, playerid, amount, weaponid);
             rwc_SetFlagTorso(playerid, true);
         }
         case RWC_BODY_PART_LEFT_ARM: 
         {
-            CallRemoteFunction("OnPlayerShootLeftArm", "ddfd", playerid, issuerid, amount, weaponid);
+            CallRemoteFunction("OnPlayerShootLeftArm", "ddfd", issuerid, playerid, amount, weaponid);
             rwc_SetFlagLA(playerid, true);
         }
         case RWC_BODY_PART_LEFT_LEG: 
         {
-            CallRemoteFunction("OnPlayerShootLeftLeg", "ddfd", playerid, issuerid, amount, weaponid);
+            CallRemoteFunction("OnPlayerShootLeftLeg", "ddfd", issuerid, playerid, amount, weaponid);
             rwc_SetFlagLL(playerid, true);
         }
         case RWC_BODY_PART_RIGHT_ARM: 
         {
-            CallRemoteFunction("OnPlayerShootRightArm", "ddfd", playerid, issuerid, amount, weaponid);
+            CallRemoteFunction("OnPlayerShootRightArm", "ddfd", issuerid, playerid, amount, weaponid);
             rwc_SetFlagRA(playerid, true);
         }
         case RWC_BODY_PART_RIGHT_LEG: 
         {
-            CallRemoteFunction("OnPlayerShootRightLeg", "ddfd", playerid, issuerid, amount, weaponid);
+            CallRemoteFunction("OnPlayerShootRightLeg", "ddfd", issuerid, playerid, amount, weaponid);
             rwc_SetFlagRL(playerid, true);
         }
         case RWC_BODY_PART_GROIN: 
         {
-            CallRemoteFunction("OnPlayerShootGroin", "ddfd", playerid, issuerid, amount, weaponid);
+            CallRemoteFunction("OnPlayerShootGroin", "ddfd", issuerid, playerid, amount, weaponid);
             rwc_SetFlagGroin(playerid, true);
         }
     }
