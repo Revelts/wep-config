@@ -50,6 +50,36 @@ the source code, direct users there. If not, list your API and describe it well
 in this section. If your library is passive and has no API, simply omit this
 section.
 -->
+## Function
+
+```c 
+IsBulletHitHead(playerid)
+```
+- This function to check if the bullet hit playerid's head
+```c 
+IsBulletHitTorso(playerid)
+```
+- This function to check if the bullet hit playerid's torso
+```c 
+IsBulletHitLeftArm(playerid)
+```
+- This function to check if the bullet hit playerid's left arm
+```c 
+IsBulletHitRightArm(playerid)
+```
+- This function to check if the bullet hit playerid's right arm
+```c 
+IsBulletHitRightLeg(playerid)
+```
+- This function to check if the bullet hit playerid's right leg
+```c 
+IsBulletHitLeftLeg(playerid)
+```
+- This function to check if the bullet hit playerid's left leg
+```c 
+IsBulletHitGroin(playerid)
+```
+- This function to check if the bullet hit playerid's groin
 
 ## Callback
 ```c
