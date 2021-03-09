@@ -20,8 +20,8 @@
 #define RWC_BODY_PART_HEAD                  (9)
 
 //Global Variable
-enum RWC_PLAYER_FLAG (<<= 1){
-    rwc_head = 1,
+enum RWC_PLAYER_FLAG {
+    rwc_head,
     rwc_torso,
     rwc_leftarm,
     rwc_rightarm,
@@ -30,60 +30,149 @@ enum RWC_PLAYER_FLAG (<<= 1){
     rwc_groin
 };
 
-static RWC_PLAYER_FLAG:rwc_PlayerData[MAX_PLAYERS];
+static rwc_PlayerData[MAX_PLAYERS][RWC_PLAYER_FLAG];
 
-//Function
-stock static RWC_PLAYER_FLAG:rwc_GetFlag(playerid, RWC_PLAYER_FLAG:flag)
+//Include Function
+stock static rwc_GetFlagHead(playerid)
 {
-	return (rwc_PlayerData[playerid] & flag);
+	return rwc_PlayerData[playerid][rwc_head];
 }
 
-stock static RWC_PLAYER_FLAG:rwc_SetFlag(playerid, RWC_PLAYER_FLAG:flag, status)
+stock static rwc_SetFlagHead(playerid, status)
 {
 	if(status)
-		return (rwc_PlayerData[playerid] |= flag);
+		return rwc_PlayerData[playerid][rwc_head] = true;
 	else
-	    return (rwc_PlayerData[playerid] &= ~flag);
+	    return rwc_PlayerData[playerid][rwc_head] = false;
+}
+
+stock static rwc_GetFlagTorso(playerid)
+{
+	return rwc_PlayerData[playerid][rwc_torso];
+}
+
+stock static rwc_SetFlagTorso(playerid, status)
+{
+	if(status)
+		return rwc_PlayerData[playerid][rwc_torso] = true;
+	else
+	    return rwc_PlayerData[playerid][rwc_torso] = false;
+}
+
+
+stock static rwc_GetFlagLA(playerid)
+{
+	return rwc_PlayerData[playerid][rwc_leftarm];
+}
+
+stock static rwc_SetFlagLA(playerid, status)
+{
+	if(status)
+		return rwc_PlayerData[playerid][rwc_leftarm] = true;
+	else
+	    return rwc_PlayerData[playerid][rwc_leftarm] = false;
+}
+
+
+stock static rwc_GetFlagRA(playerid)
+{
+	return rwc_PlayerData[playerid][rwc_rightarm];
+}
+
+stock static rwc_SetFlagRA(playerid, status)
+{
+	if(status)
+		return rwc_PlayerData[playerid][rwc_rightarm] = true;
+	else
+	    return rwc_PlayerData[playerid][rwc_rightarm] = false;
+}
+
+
+stock static rwc_GetFlagLL(playerid)
+{
+	return rwc_PlayerData[playerid][rwc_leftleg];
+}
+
+stock static rwc_SetFlagLL(playerid, status)
+{
+	if(status)
+		return rwc_PlayerData[playerid][rwc_leftleg] = true;
+	else
+	    return rwc_PlayerData[playerid][rwc_leftleg] = false;
+}
+
+
+stock static rwc_GetFlagRL(playerid)
+{
+	return rwc_PlayerData[playerid][rwc_rightleg];
+}
+
+stock static rwc_SetFlagRL(playerid, status)
+{
+	if(status)
+		return rwc_PlayerData[playerid][rwc_rightleg] = true;
+	else
+	    return rwc_PlayerData[playerid][rwc_rightleg] = false;
+}
+
+
+stock static rwc_GetFlagGroin(playerid)
+{
+	return rwc_PlayerData[playerid][rwc_groin];
+}
+
+stock static rwc_SetFlagGroin(playerid, status)
+{
+	if(status)
+		return rwc_PlayerData[playerid][rwc_groin] = true;
+	else
+	    return rwc_PlayerData[playerid][rwc_groin] = false;
 }
 
 //Function Prototype
-forward OnPlayerShootHead(playerid, issuerid, amount, weaponid);
-forward OnPlayerShootTorso(playerid, issuerid, amount, weaponid);
-forward OnPlayerShootRightArm(playerid, issuerid, amount, weaponid);
-forward OnPlayerShootLeftArm(playerid, issuerid, amount, weaponid);
-forward OnPlayerShootRightLeg(playerid, issuerid, amount, weaponid);
-forward OnPlayerShootLeftLeg(playerid, issuerid, amount, weaponid);
-forward OnPlayerShootGroin(playerid, issuerid, amount, weaponid);
+forward OnPlayerShootHead(playerid, issuerid, Float:amount, weaponid);
+forward OnPlayerShootTorso(playerid, issuerid, Float:amount, weaponid);
+forward OnPlayerShootRightArm(playerid, issuerid, Float:amount, weaponid);
+forward OnPlayerShootLeftArm(playerid, issuerid, Float:amount, weaponid);
+forward OnPlayerShootRightLeg(playerid, issuerid, Float:amount, weaponid);
+forward OnPlayerShootLeftLeg(playerid, issuerid, Float:amount, weaponid);
+forward OnPlayerShootGroin(playerid, issuerid, Float:amount, weaponid);
 
 
 stock IsBulletHitHead(playerid)
 {
-    return rwc_GetFlag(playerid, rwc_head);
+    return rwc_GetFlagHead(playerid);
 }
 
 stock IsBulletHitTorso(playerid)
 {
-    return rwc_GetFlag(playerid, rwc_torso);
+    return rwc_GetFlagTorso(playerid);
 }
 
 stock IsBulletHitLeftArm(playerid)
 {
-    return rwc_GetFlag(playerid, rwc_leftarm);
+    return rwc_GetFlagLA(playerid);
 }
 
 stock IsBulletHitRightArm(playerid)
 {
-    return rwc_GetFlag(playerid, rwc_rightarm);
+    return rwc_GetFlagRA(playerid);
 }
 
 stock IsBulletHitRightLeg(playerid)
 {
-    return rwc_GetFlag(playerid, rwc_rightleg);
+    return rwc_GetFlagRL(playerid);
 }
 
-stock IsBulletHitleftLeg(playerid)
+stock IsBulletHitLeftLeg(playerid)
 {
-    return rwc_GetFlag(playerid, rwc_leftleg);
+    return rwc_GetFlagLL(playerid);
+}
+
+
+stock IsBulletHitGroin(playerid)
+{
+    return rwc_GetFlagLL(playerid);
 }
 
 //Timers
@@ -91,26 +180,26 @@ stock IsBulletHitleftLeg(playerid)
 forward rwc_ResetFlag(playerid);
 public rwc_ResetFlag(playerid)
 {
-    if(rwc_GetFlag(playerid, rwc_head))
-        rwc_SetFlag(playerid, rwc_head, false);
+    if(rwc_GetFlagHead(playerid))
+        rwc_SetFlagHead(playerid, false);
 
-    if(rwc_GetFlag(playerid, rwc_torso))
-        rwc_SetFlag(playerid, rwc_torso, false);
+    if(rwc_GetFlagTorso(playerid))
+        rwc_SetFlagTorso(playerid, false);
 
-    if(rwc_GetFlag(playerid, rwc_leftleg))
-        rwc_SetFlag(playerid, rwc_leftleg, false);
+    if(rwc_GetFlagRA(playerid))
+        rwc_SetFlagRA(playerid, false);
 
-    if(rwc_GetFlag(playerid, rwc_rightleg))
-        rwc_SetFlag(playerid, rwc_rightleg, false);
+    if(rwc_GetFlagRL(playerid))
+        rwc_SetFlagRL(playerid, false);
 
-    if(rwc_GetFlag(playerid, rwc_rightarm))
-        rwc_SetFlag(playerid, rwc_rightarm, false);
+    if(rwc_GetFlagLL(playerid))
+        rwc_SetFlagLL(playerid, false);
 
-    if(rwc_GetFlag(playerid, rwc_leftarm))
-        rwc_SetFlag(playerid, rwc_leftarm, false);
+    if(rwc_GetFlagLA(playerid))
+        rwc_SetFlagLA(playerid, false);
 
-    if(rwc_GetFlag(playerid, rwc_groin))
-        rwc_SetFlag(playerid, rwc_groin, false);
+    if(rwc_GetFlagGroin(playerid))
+        rwc_SetFlagGroin(playerid, false);
 }
 
 public OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid, bodypart)
@@ -120,42 +209,42 @@ public OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid, bodypart)
         case RWC_BODY_PART_HEAD: 
         {
             CallRemoteFunction("OnPlayerShootHead", "ddfd", playerid, issuerid, amount, weaponid);
-            rwc_SetFlag(playerid, rwc_head, true);
+            rwc_SetFlagHead(playerid, true);
         }
         case RWC_BODY_PART_TORSO: 
         {
             CallRemoteFunction("OnPlayerShootTorso", "ddfd", playerid, issuerid, amount, weaponid);
-            rwc_SetFlag(playerid, rwc_torso, true);
+            rwc_SetFlagTorso(playerid, true);
         }
         case RWC_BODY_PART_LEFT_ARM: 
         {
             CallRemoteFunction("OnPlayerShootLeftArm", "ddfd", playerid, issuerid, amount, weaponid);
-            rwc_SetFlag(playerid, rwc_leftarm, true);
+            rwc_SetFlagLA(playerid, true);
         }
         case RWC_BODY_PART_LEFT_LEG: 
         {
             CallRemoteFunction("OnPlayerShootLeftLeg", "ddfd", playerid, issuerid, amount, weaponid);
-            rwc_SetFlag(playerid, rwc_leftleg, true);
+            rwc_SetFlagLL(playerid, true);
         }
         case RWC_BODY_PART_RIGHT_ARM: 
         {
             CallRemoteFunction("OnPlayerShootRightArm", "ddfd", playerid, issuerid, amount, weaponid);
-            rwc_SetFlag(playerid, rwc_rightarm, true);
+            rwc_SetFlagRA(playerid, true);
         }
         case RWC_BODY_PART_RIGHT_LEG: 
         {
             CallRemoteFunction("OnPlayerShootRightLeg", "ddfd", playerid, issuerid, amount, weaponid);
-            rwc_SetFlag(playerid, rwc_rightleg, true);
+            rwc_SetFlagRL(playerid, true);
         }
         case RWC_BODY_PART_GROIN: 
         {
             CallRemoteFunction("OnPlayerShootGroin", "ddfd", playerid, issuerid, amount, weaponid);
-            rwc_SetFlag(playerid, rwc_groin, true);
+            rwc_SetFlagGroin(playerid, true);
         }
     }
     SetTimerEx("rwc_ResetFlag", 200, false, "i", playerid);
     #if defined rwc_OnPlayerTakeDamage
-        return rwc_OnPlayerTakeDamage(playerid, issuerid, amount, weaponid, bodypart)
+        return rwc_OnPlayerTakeDamage(playerid, issuerid, amount, weaponid, bodypart);
     #else
         return 1;
     #endif
@@ -168,6 +257,6 @@ public OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid, bodypart)
 #endif
 #define OnPlayerTakeDamage rwc_OnPlayerTakeDamage
 #if defined rwc_OnPlayerTakeDamage
-    forward rwc_OnPlayerTakeDamage(playerid, issuerid, amount, weaponid, bodypart);
+    forward rwc_OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid, bodypart);
 #endif
 
