@@ -42,12 +42,75 @@ Include in your code and begin using the library:
 
 ## Usage
 
+- Update your server body part checker separately with this library!
+
 <!--
 Write your code documentation or examples here. If your library is documented in
 the source code, direct users there. If not, list your API and describe it well
 in this section. If your library is passive and has no API, simply omit this
 section.
 -->
+
+## Callback
+
+- This callback used to check when player get shot by issuerid on their head
+  - playerid : the player that get shot at
+  - issuerid : the player that cause the damage
+  - amount   : the amount of the damage
+  - weaponid : weaponid
+```
+OnPlayerShootHead(playerid, issuerid, Float:amount, weaponid);
+```
+- This callback used to check when player get shot by issuerid on their torso
+  - playerid : the player that get shot at
+  - issuerid : the player that cause the damage
+  - amount   : the amount of the damage
+  - weaponid : weaponid
+```
+OnPlayerShootTorso(playerid, issuerid, Float:amount, weaponid);
+```
+- This callback used to check when player get shot by issuerid on their right arm
+  - playerid : the player that get shot at
+  - issuerid : the player that cause the damage
+  - amount   : the amount of the damage
+  - weaponid : weaponid
+```
+OnPlayerShootRightArm(playerid, issuerid, Float:amount, weaponid);
+```
+- This callback used to check when player get shot by issuerid on their left arm
+  - playerid : the player that get shot at
+  - issuerid : the player that cause the damage
+  - amount   : the amount of the damage
+  - weaponid : weaponid
+```
+OnPlayerShootLeftArm(playerid, issuerid, Float:amount, weaponid);
+```
+- This callback used to check when player get shot by issuerid on their right leg
+  - playerid : the player that get shot at
+  - issuerid : the player that cause the damage
+  - amount   : the amount of the damage
+  - weaponid : weaponid
+```
+OnPlayerShootRightLeg(playerid, issuerid, Float:amount, weaponid);
+```
+- This callback used to check when player get shot by issuerid on their left leg
+  - playerid : the player that get shot at
+  - issuerid : the player that cause the damage
+  - amount   : the amount of the damage
+  - weaponid : weaponid
+```
+OnPlayerShootLeftLeg(playerid, issuerid, Float:amount, weaponid);
+```
+- This callback used to check when player get shot by issuerid on their groin
+  - playerid : the player that get shot at
+  - issuerid : the player that cause the damage
+  - amount   : the amount of the damage
+  - weaponid : weaponid
+```
+OnPlayerShootGroin(playerid, issuerid, Float:amount, weaponid);
+```
+
+
 
 ## Testing
 
